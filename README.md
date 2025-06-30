@@ -41,27 +41,27 @@ Phương pháp thực nghiệm: Xây dựng ứng dụng web bằng Laravel Fram
 
 ## Phân tích và thiết kế hệ thống
 ### Sơ đồ lớp:
-![image](https://github.com/user-attachments/assets/f07da186-f230-4077-a203-669f4745a7a8)
+![image](https://github.com/user-attachments/assets/f07da186-f230-4077-a203-669f4745a7a8) <br>
 ### Sơ đồ Use case:
 Với  mô tả bài toán đã trình bày ở trên, tôi đề xuất sơ đồ Use case tổng quát như sau:<br>
 Use case tổng quát của nhân viên công ty thời trang<br>
-![image](https://github.com/user-attachments/assets/deab5bbc-86b8-4485-b54a-91a48737eb68)
+![image](https://github.com/user-attachments/assets/deab5bbc-86b8-4485-b54a-91a48737eb68)  <br>
 Mô tả: Admin đóng vai trò quản trị hệ thống cao nhất, có quyền quản lý người dùng, danh mục, nhà cung cấp và toàn bộ hoạt động liên quan đến sản phẩm, đơn hàng, giao hàng và nguyên liệu.Các nhân viên công ty thời trang chỉ được phân quyền theo chức năng chuyên trách như quản lý sản xuất, xác nhận đơn, phê duyệt giao hàng hoặc nhập kho.<br>
 Use case của nhà cung cấp<br>
-![image](https://github.com/user-attachments/assets/a119c483-b6d2-4ded-a46c-bfed48134cf1)
+![image](https://github.com/user-attachments/assets/a119c483-b6d2-4ded-a46c-bfed48134cf1) <br>
 Mô tả: Giám đốc nhà cung cấp có toàn quyền quản trị hệ thống, bao gồm quản lý tài khoản và mọi chức năng liên quan đến nguyên liệu. Nhân viên chỉ được thực hiện các thao tác cơ bản như thêm, sửa, xóa và cập nhật trạng thái nguyên liệu.<br>
 Use case tổng quát của giao hàng<br>
-![image](https://github.com/user-attachments/assets/251c9b61-13b4-4992-be77-88fd4a4c9989)
+![image](https://github.com/user-attachments/assets/251c9b61-13b4-4992-be77-88fd4a4c9989)  <br>
 Use case tổng quát của khách hàng<br>
-![image](https://github.com/user-attachments/assets/3ecae736-0a5c-471e-8037-8dcb32858c66)
+![image](https://github.com/user-attachments/assets/3ecae736-0a5c-471e-8037-8dcb32858c66) <br>
 Mô tả: Người dùng bắt buộc phải đăng nhập với tài khoản đã được cấp, mỗi tài khoản sẽ có những phân quyền riêng, tùy vào phân quyền sẽ được sử dụng các chức năng khác nhau.<br>
 Use case phân rã chức năng Admin<br>
-![image](https://github.com/user-attachments/assets/100451c3-7b8b-466d-a76a-593fbe98aed6)
+![image](https://github.com/user-attachments/assets/100451c3-7b8b-466d-a76a-593fbe98aed6) <br>
 Mô tả: Admin sau khi đăng nhập vào hệ thống bằng tài khoản được cấp, có quyền thực hiện các chức năng quản lý người dùng, nhà cung cấp, công ty giao hàng, danh mục, sản phẩm, đơn nhập nguyên liệu, đơn sản xuất, đơn hàng, cùng với việc duyệt đơn và xem thông tin chi tiết từng đơn. Ngoài ra, Admin có thể tạo, sửa, xóa và xem thông tin chi tiết của từng thực thể trong hệ thống. Hệ thống cũng hỗ trợ chức năng xuất báo cáo kho và báo cáo doanh thu, đồng thời cho phép Admin cập nhật trạng thái đơn hàng và đơn sản xuất khi cần thiết.<br>
 Use case phân rã chức năng Nhân viên quản lý sản xuất<br>
-![image](https://github.com/user-attachments/assets/efc5ad02-ed8d-4d45-99bd-e9ef0a5c0237)
+![image](https://github.com/user-attachments/assets/efc5ad02-ed8d-4d45-99bd-e9ef0a5c0237) <br>
 Use case phân rã chức năng Nhân viên xác nhận sản xuất<br>
-![image](https://github.com/user-attachments/assets/20773548-9d26-4498-9231-ceef4ebe3919)
+![image](https://github.com/user-attachments/assets/20773548-9d26-4498-9231-ceef4ebe3919) <br>
 Use case phân rã chức năng Nhân viên phê duyệt kho<br>
 ![image](https://github.com/user-attachments/assets/11286a9f-b6dd-4bc2-96e5-c8eaf60f52b5)
 Use case phân rã chức năng Nhân viên phê duyệt giao hàng<br>
