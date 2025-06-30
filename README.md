@@ -63,38 +63,39 @@ Use case phân rã chức năng Nhân viên quản lý sản xuất<br>
 Use case phân rã chức năng Nhân viên xác nhận sản xuất<br>
 ![image](https://github.com/user-attachments/assets/20773548-9d26-4498-9231-ceef4ebe3919) <br>
 Use case phân rã chức năng Nhân viên phê duyệt kho<br>
-![image](https://github.com/user-attachments/assets/11286a9f-b6dd-4bc2-96e5-c8eaf60f52b5)
+![image](https://github.com/user-attachments/assets/11286a9f-b6dd-4bc2-96e5-c8eaf60f52b5) <br>
 Use case phân rã chức năng Nhân viên phê duyệt giao hàng<br>
-![image](https://github.com/user-attachments/assets/a7222bf7-2d2b-48cf-8a1e-2a09591d70e2)
+![image](https://github.com/user-attachments/assets/a7222bf7-2d2b-48cf-8a1e-2a09591d70e2) <br>
 Use case phân rã chức năng Giám đốc giao hàng<br>
-![image](https://github.com/user-attachments/assets/dd92d735-b173-4e44-ac9c-1efe8d012fc9)
+![image](https://github.com/user-attachments/assets/dd92d735-b173-4e44-ac9c-1efe8d012fc9) <br>
 Use case phân rã chức năng Nhân viên giao hàng<br>
-![image](https://github.com/user-attachments/assets/aea564ba-f94a-40d7-a2e9-a41375944425)
+![image](https://github.com/user-attachments/assets/aea564ba-f94a-40d7-a2e9-a41375944425) <br>
 ### Phác thảo giao diện:
 Cấu trúc giao diện chung trang khách hàng: Giao diện khách hàng được thiết kế linh hoạt với hiệu ứng theo mùa dựa trên thời gian hệ thống: mùa xuân (tháng 3–5) hiển thị hoa nở; tháng 7–8 có hiệu ứng mưa rơi; tháng 6, 9–11 là hiệu ứng lá rụng; và các tháng còn lại là hiệu ứng tuyết rơi.<br>
-![image](https://github.com/user-attachments/assets/b2f3c632-5017-4030-b95c-6441aaaf536c)
+![image](https://github.com/user-attachments/assets/b2f3c632-5017-4030-b95c-6441aaaf536c) <br>
 Cấu trúc giao diện tổng thể của các trang quản trị viên, nhà cung cấp và nhân viên giao hàng được thiết kế thống nhất về bố cục. Sự khác biệt chủ yếu nằm ở yếu tố màu sắc giao diện, nhằm phân biệt trực quan giữa các nhóm người dùng.<br>
-![image](https://github.com/user-attachments/assets/dcef6346-52d1-4129-b309-64b9d5b157c5)
+![image](https://github.com/user-attachments/assets/dcef6346-52d1-4129-b309-64b9d5b157c5) <br>
 ### Sơ đồ phân rã chức năng:
 Sơ đồ phân rã chức năng quản trị viên<br>
-![image](https://github.com/user-attachments/assets/53769ffb-8de4-41b1-b61e-4c24086eab3e)
+![image](https://github.com/user-attachments/assets/53769ffb-8de4-41b1-b61e-4c24086eab3e) <br>
 Sơ đồ phân rã chức năng Nhân viên quản lý sản xuất<br>
-![image](https://github.com/user-attachments/assets/64ce12ed-c133-46b3-8108-09d43411fe7a)
+![image](https://github.com/user-attachments/assets/64ce12ed-c133-46b3-8108-09d43411fe7a) <br>
 Sơ đồ phân rã chức năng nhân viên xác nhận sản xuất<br>
-![image](https://github.com/user-attachments/assets/328f235c-ae54-40f7-9d5c-4cbc7179e19c)
+![image](https://github.com/user-attachments/assets/328f235c-ae54-40f7-9d5c-4cbc7179e19c) <br>
 Sơ đồ phân rã chức năng nhân viên phê duyệt kho<br>
-![image](https://github.com/user-attachments/assets/cfbfc182-e3a6-4572-8bb8-3ef682b8536f)
+![image](https://github.com/user-attachments/assets/cfbfc182-e3a6-4572-8bb8-3ef682b8536f) <br>
 Sơ đồ phân rã chức năng nhân viên phê duyệt giao hàng<br>
-![image](https://github.com/user-attachments/assets/5cc96b6e-8ca0-476b-b19d-fa069c37456d)
+![image](https://github.com/user-attachments/assets/5cc96b6e-8ca0-476b-b19d-fa069c37456d) <br>
 Sơ đồ phân rã chức năng giám đốc nhà cung cấp<br>
-![image](https://github.com/user-attachments/assets/e8819a11-8883-4eb4-ae61-0fc163696aee)
+![image](https://github.com/user-attachments/assets/e8819a11-8883-4eb4-ae61-0fc163696aee) <br>
 Sơ đồ phân rã chức năng nhân viên nhà cung cấp<br>
-![image](https://github.com/user-attachments/assets/36c437ff-4192-47d0-ae09-f159ade677b3)
+![image](https://github.com/user-attachments/assets/36c437ff-4192-47d0-ae09-f159ade677b3) <br>
 Sơ đồ phân rã chức năng giám đốc giao hàng<br>
-![image](https://github.com/user-attachments/assets/df5f7b18-e086-47d7-92b4-70b91bb4c42c)
+![image](https://github.com/user-attachments/assets/df5f7b18-e086-47d7-92b4-70b91bb4c42c) <br>
 Sơ đồ phân rã chức năng nhân viên giao hàng<br>
-![image](https://github.com/user-attachments/assets/db707025-a441-4a45-972f-b0931b5fb54d)
+![image](https://github.com/user-attachments/assets/db707025-a441-4a45-972f-b0931b5fb54d) <br>
 Sơ đồ phân rã chức năng khách hàng<br>
-![image](https://github.com/user-attachments/assets/97766299-b6cc-4ece-b342-3a58202469cd)
+![image](https://github.com/user-attachments/assets/97766299-b6cc-4ece-b342-3a58202469cd) <br>
 Sơ đồ phân rã chức năng nhân viên khách hàng vãng lai<br>
-![image](https://github.com/user-attachments/assets/ecd76af2-3124-4f67-82e2-7cb84130388d)
+![image](https://github.com/user-attachments/assets/ecd76af2-3124-4f67-82e2-7cb84130388d) <br>
+ 
