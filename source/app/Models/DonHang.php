@@ -45,12 +45,9 @@ class DonHang extends Model
 
     public function getTongTien()
     {
-        return $this->chiTietDonHang->sum(function ($ctdh) {
+        return $this->chiTietDonHangs->sum(function ($ctdh) {
             return $ctdh->so_luong * $ctdh->gia;
         });
     }
-    public function chiTietDonHang()
-    {
-        return $this->hasMany(ChiTietDonHang::class, 'id_don_hang');
-    }
+   
 }

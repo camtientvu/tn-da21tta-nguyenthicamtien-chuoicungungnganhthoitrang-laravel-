@@ -65,12 +65,15 @@
                                 @endif
                             </div>
                             @php
-                            $sao = round($sp->sao_tb ?? 5); // nếu chưa có đánh giá thì mặc định 5 sao
-                            @endphp
-                            <div class="product-rating text-warning">
-                                {!! str_repeat('★', $sao) . str_repeat('☆', 5 - $sao) !!}
-                                ({{ number_format($sp->sao_tb ?? 5, 1) }})
-                            </div>
+            $sao = round($sp->sao_tb ?? 0);
+            @endphp
+
+            @if($sp->sao_tb && $sp->sao_tb > 0)
+            <div class="product-rating text-warning">
+                {!! str_repeat('★', $sao) . str_repeat('☆', 5 - $sao) !!}
+                ({{ number_format($sp->sao_tb, 1) }})
+            </div>
+            @endif
 
                             @if($sp->luot_ban)
                             <div class="product-stock in-stock"> Đã bán: {{ $sp->luot_ban }} </div> @endif

@@ -27,7 +27,8 @@
                     @php
                     $don = $buocList->first()->donGiaoHang ?? null;
                     $maDon = $don->donHang->ma ?? '---';
-                    $ngayGiao = \Carbon\Carbon::parse($don->ngay_giao)->format('d/m/Y');
+                    $ngayGiao = optional($don)->ngay_giao ? \Carbon\Carbon::parse($don->ngay_giao)->format('d/m/Y') : '---';
+
                     @endphp
                     <tr>
                         <td class="text-center fw-bold">#{{ $maDon }}</td>

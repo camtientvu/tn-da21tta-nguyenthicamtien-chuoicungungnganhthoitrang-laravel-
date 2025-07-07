@@ -11,11 +11,17 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 
 class DonHangController extends Controller
 {
     public function index()
     {
+         $user = Auth::user();
+        $nv=$user->nhanVienCongTy;
+         if (!$nv || $nv->vai_tro !== 'admin' || $nv->vai_tro !== 'phe_duyet_giao_hang') {
+            abort(403, 'Không có quyền truy cập.');
+        }
         $donHangs = DonHang::with('khachHang.user')
             ->orderByRaw("CASE WHEN trang_thai = 'Chờ duyệt' THEN 0 ELSE 1 END")
             ->orderByDesc('ngay_dat')

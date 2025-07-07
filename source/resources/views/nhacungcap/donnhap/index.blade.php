@@ -24,7 +24,7 @@
         <tbody>
             @foreach($donNhaps as $don)
             <tr>
-                <td>{{ $don->ma }}</td>
+                <td>DNH: {{ $don->id }}</td>
                 <td>{{ \Carbon\Carbon::parse($don->ngay_nhap)->format('d/m/Y') }}</td>
                 <td>{{ $don->chi_tiet_nhap_nguyen_lieus_count }}</td>
                 <td class="text-right">{{ number_format($don->tong_tien, 0, ',', '.') }} VND</td>

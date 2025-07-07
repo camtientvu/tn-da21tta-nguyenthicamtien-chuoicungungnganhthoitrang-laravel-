@@ -9,7 +9,6 @@ use App\Models\DonGiaoHang;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Collection;
 
 class BaoCaoController extends Controller
 {
@@ -27,19 +26,11 @@ class BaoCaoController extends Controller
         $tuNgay = $request->input('tu_ngay', Carbon::now()->startOfMonth()->format('Y-m-d'));
         $denNgay = $request->input('den_ngay', Carbon::now()->endOfMonth()->format('Y-m-d'));
 
-        $donGiao = DonGiaoHang::where('id_cong_ty_giao_hang', $idCongTy)
-            ->whereBetween('ngay_giao', [$tuNgay, $denNgay])
-            ->get();
-
+        $donGiao = $this->getDonGiao($idCongTy, $tuNgay, $denNgay);
         $tongDon = $donGiao->count();
-        $tongDoanhThu = $this->tinhTongDoanhThu($idCongTy, $tuNgay, $denNgay);
+        $tongDoanhThu = $this->tinhTongDoanhThu($donGiao);
 
-
-        $trangThai = DonGiaoHang::select('trang_thai', DB::raw('count(*) as so_luong'))
-            ->where('id_cong_ty_giao_hang', $idCongTy)
-            ->whereBetween('ngay_giao', [$tuNgay, $denNgay])
-            ->groupBy('trang_thai')
-            ->get();
+        $trangThai = $this->getTrangThaiThongKe($idCongTy, $tuNgay, $denNgay);
 
         return view('giaohang.baocao.index', compact(
             'tuNgay',
@@ -64,23 +55,11 @@ class BaoCaoController extends Controller
         $denNgay = $request->input('to');
         $trangThaiLoc = $request->input('trang_thai');
 
-        $query = DonGiaoHang::where('id_cong_ty_giao_hang', $idCongTy)
-            ->whereBetween('ngay_giao', [$tuNgay, $denNgay]);
-
-        if ($trangThaiLoc) {
-            $query->where('trang_thai', $trangThaiLoc);
-        }
-
-        $donGiao = $query->get();
-
+        $donGiao = $this->getDonGiao($idCongTy, $tuNgay, $denNgay, $trangThaiLoc);
         $tongDon = $donGiao->count();
-        $tongDoanhThu = $donGiao->where('trang_thai', 'da_giao')->sum('tong_tien');
+        $tongDoanhThu = $this->tinhTongDoanhThu($donGiao);
 
-        $trangThai = DonGiaoHang::select('trang_thai', DB::raw('count(*) as so_luong'))
-            ->where('id_cong_ty_giao_hang', $idCongTy)
-            ->whereBetween('ngay_giao', [$tuNgay, $denNgay])
-            ->groupBy('trang_thai')
-            ->get();
+        $trangThai = $this->getTrangThaiThongKe($idCongTy, $tuNgay, $denNgay);
 
         return response()->json([
             'tongDon' => $tongDon,
@@ -88,25 +67,6 @@ class BaoCaoController extends Controller
             'trangThai' => $trangThai,
         ]);
     }
-
-
-
-    public function tinhTongDoanhThu($idCongTy, $tuNgay, $denNgay)
-    {
-        $donGiaoDaGiao = DonGiaoHang::with('donHang.chiTietDonHang')
-            ->where('id_cong_ty_giao_hang', $idCongTy)
-            ->where('trang_thai', 'da_giao')
-            ->whereBetween('ngay_giao', [$tuNgay, $denNgay])
-            ->get();
-
-        $tongDoanhThu = $donGiaoDaGiao->sum(function ($donGiao) {
-            return $donGiao->donHang ? $donGiao->donHang->getTongTien() : 0;
-        });
-
-        return $tongDoanhThu;
-    }
-
-
 
     public function exportPDF(Request $request)
     {
@@ -121,37 +81,55 @@ class BaoCaoController extends Controller
 
         $tuNgay = $request->input('tu_ngay', now()->startOfMonth()->format('Y-m-d'));
         $denNgay = $request->input('den_ngay', now()->endOfMonth()->format('Y-m-d'));
-
         $trangThaiLoc = $request->input('trang_thai');
 
-        $query = DonGiaoHang::where('id_cong_ty_giao_hang', $idCongTy)
+        $donGiao = $this->getDonGiao($idCongTy, $tuNgay, $denNgay, $trangThaiLoc);
+        $tongDon = $donGiao->count();
+        $tongDoanhThu = $this->tinhTongDoanhThu($donGiao);
+
+        $trangThai = $this->getTrangThaiThongKe($idCongTy, $tuNgay, $denNgay);
+
+        $pdf = PDF::loadView('giaohang.baocao.pdf', compact(
+            'tuNgay',
+            'denNgay',
+            'donGiao',
+            'tongDon',
+            'tongDoanhThu',
+            'trangThai'
+        ));
+
+        return $pdf->download("BaoCaoGiaoHang_{$tuNgay}_den_{$denNgay}.pdf");
+    }
+
+    // ------------------------------
+    // HÀM DÙNG CHUNG
+    // ------------------------------
+
+    private function getDonGiao($idCongTy, $tuNgay, $denNgay, $trangThai = null)
+    {
+        $query = DonGiaoHang::with('donHang.chiTietDonHangs')
+            ->where('id_cong_ty_giao_hang', $idCongTy)
             ->whereBetween('ngay_giao', [$tuNgay, $denNgay]);
 
-        if ($trangThaiLoc) {
-            $query->where('trang_thai', $trangThaiLoc);
+        if ($trangThai) {
+            $query->where('trang_thai', $trangThai);
         }
 
-        $donGiao = $query->get();
+        return $query->get();
+    }
 
-        $tongDon = $donGiao->count();
-        $tongDoanhThu = $donGiao->where('trang_thai', 'Hoàn thành')->sum('tong_tien');
+    private function tinhTongDoanhThu($donGiaoCollection)
+    {
+        return $donGiaoCollection->filter(fn($d) => $d->trang_thai === 'Đã giao')
+            ->sum(fn($d) => optional($d->donHang)->getTongTien() ?? 0);
+    }
 
-        $trangThai = DonGiaoHang::select('trang_thai', DB::raw('count(*) as so_luong'))
+    private function getTrangThaiThongKe($idCongTy, $tuNgay, $denNgay)
+    {
+        return DonGiaoHang::select('trang_thai', DB::raw('count(*) as so_luong'))
             ->where('id_cong_ty_giao_hang', $idCongTy)
             ->whereBetween('ngay_giao', [$tuNgay, $denNgay])
             ->groupBy('trang_thai')
             ->get();
-
-        $pdf = PDF::loadView('giaohang.baocao.pdf', [
-            'tuNgay' => $tuNgay,
-            'denNgay' => $denNgay,
-            'donGiao' => $donGiao,
-            'tongDon' => $tongDon,
-            'tongDoanhThu' => $tongDoanhThu,
-            'trangThai' => $trangThai,
-        ]);
-
-        // Tên file có thể tuỳ chỉnh
-        return $pdf->download("BaoCaoGiaoHang_{$tuNgay}_den_{$denNgay}.pdf");
     }
 }

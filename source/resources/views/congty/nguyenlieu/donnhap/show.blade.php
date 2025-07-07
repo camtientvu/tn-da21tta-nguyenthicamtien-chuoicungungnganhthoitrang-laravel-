@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h3>Chi tiết đơn nhập nguyên liệu: {{ $donNhap->ma }}</h3>
+    <h3>Chi tiết đơn nhập nguyên liệu: DNH: {{ $donNhap->id }}</h3>
     <p><strong>Nhà cung cấp:</strong> {{ $donNhap->nhaCungCap->ten ?? '---' }}</p>
     <p><strong>Ngày nhập:</strong> {{ \Carbon\Carbon::parse($donNhap->ngay_nhap)->format('d/m/Y') }}</p>
     <p><strong>Tổng tiền:</strong> {{ number_format($donNhap->tong_tien) }} VND</p>

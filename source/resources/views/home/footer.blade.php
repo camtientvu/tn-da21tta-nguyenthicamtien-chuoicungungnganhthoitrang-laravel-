@@ -44,8 +44,8 @@
     function getCurrentSeason() {
         const month = new Date().getMonth() + 1;
         if ([3, 4, 5].includes(month)) return 'spring';
-        if ([7, 8].includes(month)) return 'summer';
-        if ([6, 9, 10, 11].includes(month)) return 'autumn';
+        if ([ 7,8].includes(month)) return 'summer';
+        if ([ 6,9, 10, 11].includes(month)) return 'autumn';
         return 'winter';
     }
 
@@ -70,7 +70,7 @@
             ctx.save();
             ctx.globalAlpha = p.opacity;
             ctx.translate(p.x, p.y);
-            ctx.rotate((p.angle * Math.PI) / 180);
+            ctx.rotate((p.angle * Math.PI) / 0);
 
             switch (season) {
                 case 'spring':
@@ -93,43 +93,110 @@
         drawSplashes();
         moveParticles();
     }
+ 
+    //Chỉnh cánh hoa mùa xuân
+function drawPetal(size) {
+    ctx.save();
+    ctx.fillStyle = 'rgba(243, 106, 127, 0.6)'; // Màu hồng pastel (LightPink)
 
-    function drawPetal(size) {
-        ctx.fillStyle = '#ff69b4';
-        ctx.beginPath();
-        ctx.ellipse(0, 0, size / 2, size, 0, 0, 2 * Math.PI);
-        ctx.fill();
-    }
+    // Vẽ cánh hoa
+    ctx.beginPath();
+    ctx.moveTo(0, -size); // đỉnh nhọn
+    ctx.bezierCurveTo(size * 0.6, 0, size * 1.2, size, 0, size * 1.2); // bên phải
+    ctx.bezierCurveTo(-size * 1, size, -size * 1, -size * 0.4, 0, -size); // bên trái
+    ctx.closePath();
+    ctx.fill();
+
+    // Vẽ đường lằn sóng chính giữa (gân hoa)
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(200, 60, 80, 0.4)'; // Màu đỏ nhạt cho lằn gân
+    ctx.lineWidth = 0.2;
+
+    // Lằn hơi cong lượn (giống sóng)
+    ctx.moveTo(0, -size);
+    ctx.quadraticCurveTo(size * 0.2, size * 0.2, 0, size * 1.2);
+    ctx.stroke();
+
+    ctx.restore();
+}
+
 
     // Chỉnh Mưa
 function drawRain(size) {
     ctx.save();
-    ctx.shadowColor = 'rgba(110, 198, 255, 0.3)';
-    ctx.shadowBlur = 6;
-    ctx.fillStyle = 'rgba(110, 198, 255, 0.7)'; // Màu xanh ánh sáng
     ctx.beginPath();
-    ctx.arc(0, 0, size / 3, 0, Math.PI * 2); // Hạt mưa tròn
+    ctx.fillStyle = 'rgba(110, 198, 255, 0.9)';
+    ctx.shadowColor = 'rgba(110, 198, 255, 0.2)';
+    ctx.shadowBlur = 4;
+
+    // Rút ngắn chiều cao hạt mưa bằng cách giảm tỉ lệ y
+    const heightScale = 0.9;  // <--- thay đổi này làm giọt ngắn hơn
+
+    ctx.moveTo(0.1, -size * heightScale); // đỉnh nhọn
+    ctx.bezierCurveTo(
+        size * 0.5, -size * 0.3 * heightScale,
+        size * 0.5, size * 0.7 * heightScale,
+        0, size * heightScale
+    );
+    ctx.bezierCurveTo(
+        -size * 0.6, size * 0.9 * heightScale,
+        -size * 0.6, -size * 0.3 * heightScale,
+        0, -size * heightScale
+    );
+    ctx.closePath();
     ctx.fill();
+
     ctx.restore();
 }
 
-    /////
 
-    function drawLeaf(size) {
-        ctx.fillStyle = '#ffa500';
+
+    /// Chỉnh lá mùa thu
+  function drawLeaf(size) {
+    ctx.save();
+
+    // Vẽ thân lá
+    ctx.fillStyle = '#ffa500';
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.quadraticCurveTo(size, size * 1.5, 0, size * 3);
+    ctx.quadraticCurveTo(-size, size * 1.5, 0, 0);
+    ctx.closePath();
+    ctx.fill();
+
+    // Gân chính
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(120, 50, 0, 0.5)';
+    ctx.lineWidth = 0.6;
+    ctx.moveTo(0, 0);
+    ctx.quadraticCurveTo(size * 0.2, size * 1.5, 0, size * 3);
+    ctx.stroke();
+
+    // Gân phụ hai bên (nằm trong phần lá)
+    ctx.strokeStyle = 'rgba(120, 50, 0, 0.3)';
+    ctx.lineWidth = 0.4;
+
+    // Số gân nhánh: 4 cặp
+    for (let i = 1; i <= 4; i++) {
+        const y = (size * 3 / 5) * i;
+
+        // Nhánh bên phải (ngắn hơn, không vượt ra)
         ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.quadraticCurveTo(size, size * 1.5, 0, size * 3);
-        ctx.quadraticCurveTo(-size, size * 1.5, 0, 0);
-        ctx.fill();
+        ctx.moveTo(0, y);
+        ctx.quadraticCurveTo(size * 0.2, y - size * 0, size * 0.4, y);
+        ctx.stroke();
+
+        // Nhánh bên trái
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.quadraticCurveTo(-size * 0.2, y - size * 0, -size * 0.4, y);
+        ctx.stroke();
     }
 
-    function drawSnow(size) {
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(0, 0, size / 2, 0, Math.PI * 2);
-        ctx.fill();
-    }
+    ctx.restore();
+}
+
+
 
     function moveParticles() {
         for (let p of particles) {
@@ -186,7 +253,7 @@ function drawRain(size) {
     });
 
     // ⚡️ Summer lightning & rainbow
-    if (season === 'summer') {
+   /* if (season === 'summer') {
         function drawLightning() {
             const startX = Math.random() * width;
             let x = startX,
@@ -233,7 +300,7 @@ function drawRain(size) {
         setInterval(() => {
             if (Math.random() < 0.4) drawLightning();
         }, 5000);
-    }
+    } */
 
     createParticles();
     animate();
@@ -406,7 +473,7 @@ var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 (function(){
 var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
 s1.async=true;
-s1.src='https://embed.tawk.to/684828ac77026219101b6440/1itcttoua';
+s1.src='https://embed.tawk.to/6862566b1679781914a5244e/1iv0235c4';
 s1.charset='UTF-8';
 s1.setAttribute('crossorigin','*');
 s0.parentNode.insertBefore(s1,s0);

@@ -6,6 +6,9 @@
             <div class="product-badge">
                 <span class="new">Mới</span>
             </div>
+@php
+    $soLuongTon = $sp->chiTietSanPhams->sum('so_luong');
+@endphp
 
             <div class="product-name">{{ $sp->ten }}</div>
 
@@ -35,12 +38,22 @@
             @endif
 
 
-            <div class="product-stock in-stock">Còn hàng</div>
-            <div class="view-icon">
-                <a style="text-decoration: none; color:antiquewhite" class="" href="{{ route('home.show', ['id' => $sp->id]) }}">
-                    <i class="fas fa-eye"></i> Xem chi tiết
-                </a>
-            </div>
+           @if($soLuongTon > 0)
+    <div class="product-stock in-stock">Còn hàng</div>
+@else
+    <div class="product-stock out-of-stock text-danger">Hết hàng</div>
+@endif
+
+           <div class="view-icon">
+    @if($soLuongTon > 0)
+    <a style="text-decoration: none; color:antiquewhite" href="{{ route('home.show', ['id' => $sp->id]) }}">
+        <i class="fas fa-eye"></i> Xem chi tiết
+    </a>
+    @else
+    <span class="text-secondary"><i class="fas fa-eye-slash"></i> Hết hàng</span>
+    @endif
+</div>
+
         </div>
         @endforeach
     </div>

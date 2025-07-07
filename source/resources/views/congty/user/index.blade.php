@@ -43,7 +43,7 @@
                         @case('nhan_vien_cong_ty')
                         <span class="badge bg-danger text-dark d-block text-start p-2">
 
-                            <strong>NV Công ty</strong><br>
+                            <strong>NV Công ty thời trang</strong><br>
                             <small class="text-white fst-italic">
                                 @switch($user->nhanVienCongTy->vai_tro)
                                 @case('admin')
@@ -70,7 +70,7 @@
 
                         @case('nhan_vien_nha_cung_cap')
                         <span class="badge bg-warning text-dark d-block text-start p-2">
-                            <strong>NV NCC</strong><br>
+                            <strong>NV Nhà cung cấp</strong><br>
                             {{ $user->nhanVienNhaCungCap->nhaCungCap->ten ?? 'Chưa rõ' }}<br>
                             <small class="text-dark fst-italic">
                                 {{ $user->nhanVienNhaCungCap->vai_tro == 'giam_doc' ? 'Giám đốc' : 'Nhân viên' }}

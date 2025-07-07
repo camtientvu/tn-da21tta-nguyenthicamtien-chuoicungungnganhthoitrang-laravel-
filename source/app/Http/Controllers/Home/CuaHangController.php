@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SanPham;
 use App\Models\DanhMuc;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CuaHangController extends Controller
 {
@@ -18,11 +19,11 @@ class CuaHangController extends Controller
             $query->where('id_danh_muc', $request->danh_muc);
         }
 
-        // 🔍 Lọc theo khoảng giá
         if ($request->filled('gia_tu') && $request->filled('gia_den')) {
-            $query->whereBetween('gia', [$request->gia_tu, $request->gia_den]);
-        }
-
+    $giaTu = (float) preg_replace('/[^\d.]/', '', $request->gia_tu);
+    $giaDen = (float) preg_replace('/[^\d.]/', '', $request->gia_den);
+    $query->whereBetween(DB::raw('gia - giamgia'), [$giaTu, $giaDen]);
+}
         // 🔍 Lọc sản phẩm mới
         if ($request->filled('moi')) {
             $query->orderByDesc('created_at');
