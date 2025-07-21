@@ -18,10 +18,31 @@
             <label for="xuat_xu" class="form-label">Xuất xứ</label>
             <textarea class="form-control" id="xuat_xu" name="xuat_xu">{{ old('xuat_xu', $nguyenLieu->xuat_xu) }}</textarea>
         </div>
-        <div class="mb-3">
-            <label for="don_vi" class="form-label">Đơn vị</label>
-            <input type="text" class="form-control" id="don_vi_tinh" name="don_vi_tinh" value="{{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) }}" required>
-        </div>
+       <div class="mb-3">
+    <label for="don_vi_tinh" class="form-label">Đơn vị</label>
+    <select class="form-select" id="don_vi_tinh" name="don_vi_tinh" required>
+        <option value="">-- Chọn đơn vị --</option>
+        <option value="kg" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'kg' ? 'selected' : '' }}>kg</option>
+        <option value="gam" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'gam' ? 'selected' : '' }}>gam</option>
+        <option value="hộp" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'hộp' ? 'selected' : '' }}>hộp</option>
+        <option value="cái" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'cái' ? 'selected' : '' }}>cái</option>
+        <option value="cuộn" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'cuộn' ? 'selected' : '' }}>cuộn</option>
+        <option value="chiếc" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'chiếc' ? 'selected' : '' }}>chiếc</option>
+        <option value="miếng" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'miếng' ? 'selected' : '' }}>miếng</option>
+        <option value="cây" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'cây' ? 'selected' : '' }}>cây</option>
+        <option value="tấm" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'tấm' ? 'selected' : '' }}>tấm</option>
+        <option value="m" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'm' ? 'selected' : '' }}>m</option>
+        <option value="m2" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'm2' ? 'selected' : '' }}>m2</option>
+        <option value="cm" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'cm' ? 'selected' : '' }}>cm</option>
+        <option value="mm" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'mm' ? 'selected' : '' }}>m2</option>
+        <option value="bộ" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'bộ' ? 'selected' : '' }}>bộ</option>
+        <option value="set" {{ old('don_vi_tinh', $nguyenLieu->don_vi_tinh) == 'set' ? 'selected' : '' }}>set</option>
+    </select>
+    @error('don_vi_tinh')
+        <div class="text-danger mt-1">{{ $message }}</div>
+    @enderror
+</div>
+
 
         <div class="mb-3">
             <label for="gia" class="form-label">Giá</label>
